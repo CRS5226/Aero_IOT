@@ -1,0 +1,13 @@
+download
+1. https://freeware.the-meiers.org/
+
+reading
+1. https://www.diyprojectslab.com/gas-sensor-with-arduino/
+2. https://randomnerdtutorials.com/dht11-vs-dht22-vs-lm35-vs-ds18b20-vs-bme280-vs-bmp180/
+3. https://microcontrollerslab.com/interfacing-mq-135-gas-sensor-arduino/
+4. https://how2electronics.com/bme280-arduino-based-simple-weather-station/
+5. 
+
+CODING
+1. https://how2electronics.com/iot-air-pollution-monitoring-esp8266/
+2. https://www.youtube.com/watch?v=gQYsUjT-IBo
