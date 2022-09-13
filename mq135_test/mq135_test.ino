@@ -2,7 +2,7 @@
 //////////// FOR ARDIUNO ////////////////////
 int sensorValue;
 void setup() {
-  Serial.begin(115200);                            // sets the serial port to 9600
+  Serial.begin(115200);                            // sets the serial port to 115200
 }
 void loop() {
   sensorValue = analogRead(A0);       // read analog input pin 0
