@@ -4,6 +4,8 @@
 #define DHTTYPE DHT11   
 DHT dht(DHTPIN, DHTTYPE);
 
+int cnt = 1;
+
 void setup() {
   Serial.begin(115200);
   Serial.println(F("DHTxx test!"));
@@ -12,7 +14,7 @@ void setup() {
 }
 
 void loop() {
-  delay(2000);
+  delay(500);
 
   float h = dht.readHumidity();
   float t = dht.readTemperature();
@@ -27,15 +29,21 @@ void loop() {
   float hif = dht.computeHeatIndex(f, h);
   float hic = dht.computeHeatIndex(t, h, false);
 
-  Serial.print(F("Humidity: "));
-  Serial.print(h);
-  Serial.print(F("%  Temperature: "));
+  Serial.print(cnt);
+  Serial.print(F(". Temperature: "));
   Serial.print(t);
-  Serial.print(F("°C "));
-  Serial.print(f);
-  Serial.print(F("°F  Heat index: "));
-  Serial.print(hic);
-  Serial.print(F("°C "));
-  Serial.print(hif);
-  Serial.println(F("°F"));
+  Serial.print(F("°C \n"));
+  cnt++;
+
+//  Serial.print(F("Humidity: "));
+//  Serial.print(h);
+//  Serial.print(F("%  Temperature: "));
+//  Serial.print(t);
+//  Serial.print(F("°C "));
+//  Serial.print(f);
+//  Serial.print(F("°F  Heat index: "));
+//  Serial.print(hic);
+//  Serial.print(F("°C "));
+//  Serial.print(hif);
+//  Serial.println(F("°F"));
 }

@@ -1,20 +1,4 @@
-/***************************************************************************
-  This is a library for the BMP280 humidity, temperature & pressure sensor
-
-  Designed specifically to work with the Adafruit BMP280 Breakout
-  ----> http://www.adafruit.com/products/2651
-
-  These sensors use I2C or SPI to communicate, 2 or 4 pins are required
-  to interface.
-
-  Adafruit invests time and resources providing this open source code,
-  please support Adafruit andopen-source hardware by purchasing products
-  from Adafruit!
-
-  Written by Limor Fried & Kevin Townsend for Adafruit Industries.
-  BSD license, all text above must be included in any redistribution
- ***************************************************************************/
-
+#include "DHT.h"
 #include <Wire.h>
 #include <SPI.h>
 #include <Adafruit_BMP280.h>
@@ -24,12 +8,19 @@
 #define BMP_MOSI (11)
 #define BMP_CS   (10)
 
+#define DHTPIN 2     
+#define DHTTYPE DHT11   
+int sensorValue;
+DHT dht(DHTPIN, DHTTYPE);
+
 Adafruit_BMP280 bmp; // I2C
-//Adafruit_BMP280 bmp(BMP_CS); // hardware SPI
-//Adafruit_BMP280 bmp(BMP_CS, BMP_MOSI, BMP_MISO,  BMP_SCK);
+
 
 void setup() {
   Serial.begin(115200);
+//  Serial.println(F("DHTxx test!"));
+  dht.begin();
+
   while ( !Serial ) delay(100);   // wait for native usb
   Serial.println(F("BMP280 test"));
   unsigned status;
@@ -55,19 +46,49 @@ void setup() {
 }
 
 void loop() {
-    Serial.print(F("Temperature = "));
-    Serial.print(bmp.readTemperature());
-    Serial.println(" *C ");
+  delay(1000);
 
-    Serial.print(F("Pressure = "));
-    Serial.print(bmp.readPressure());
-    Serial.println(" Pa ");
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  float f = dht.readTemperature(true);
+
+  if (isnan(h) || isnan(t) || isnan(f)) {
+    Serial.println(F("Failed to read from DHT sensor!"));
+    return;
+  }
+
+  float hif = dht.computeHeatIndex(f, h);
+  float hic = dht.computeHeatIndex(t, h, false);
+
+  Serial.print(F("Temperature: "));
+  Serial.print(t);
+  Serial.print(F("°C \n"));
+
+  Serial.print(F("Humidity: "));
+  Serial.print(h);
+  Serial.print("\n");
+
+  Serial.print(F("Heat index: "));
+  Serial.print(hic);
+  Serial.print(F("°C "));
+  Serial.print(hif);
+  Serial.println(F("°F"));
+  
+  delay(200);
+  sensorValue = analogRead(A0);       // read analog input pin 0
+  Serial.print("AirQua: ");
+  Serial.print(sensorValue, DEC); 
+  Serial.println(" PPM"); 
+  delay(1000); 
+
+
+  Serial.print(F("Pressure = "));
+  Serial.print(bmp.readPressure());
+  Serial.println(" Pa ");
     
 
-    Serial.print(F("Approx altitude = "));
-    Serial.print(bmp.readAltitude(1013.25)); /* Adjusted to local forecast! */
-    Serial.println(" m \n");
-
-    Serial.println();
-    delay(2000);
+  Serial.print(F("Approx altitude = "));
+  Serial.print(bmp.readAltitude(1013.25)); /* Adjusted to local forecast! */
+  Serial.println(" m \n");
+  delay(1000);
 }

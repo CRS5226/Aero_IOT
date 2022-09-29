@@ -7,13 +7,13 @@ DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
   Serial.begin(115200);
-  Serial.println(F("DHTxx test!"));
+//  Serial.println(F("DHTxx test!"));
 
   dht.begin();
 }
 
 void loop() {
-  delay(2000);
+  delay(1000);
 
   float h = dht.readHumidity();
   float t = dht.readTemperature();
@@ -24,26 +24,28 @@ void loop() {
     return;
   }
 
-  delay(1000);
-
   float hif = dht.computeHeatIndex(f, h);
   float hic = dht.computeHeatIndex(t, h, false);
 
-  Serial.print(F("Humidity: "));
-  Serial.print(h);
-  Serial.print(F("%  Temperature: "));
+  Serial.print(F("Temperature: "));
   Serial.print(t);
-  Serial.print(F("°C "));
-  Serial.print(f);
-  Serial.print(F("°F  Heat index: "));
-  Serial.print(hic);
-  Serial.print(F("°C "));
-  Serial.print(hif);
-  Serial.println(F("°F"));
+  Serial.print(F("°C \n"));
+
+//  Serial.print(F("Humidity: "));
+//  Serial.print(h);
+//  Serial.print(F("%  Temperature: "));
+//  Serial.print(t);
+//  Serial.print(F("°C "));
+//  Serial.print(f);
+//  Serial.print(F("°F  Heat index: "));
+//  Serial.print(hic);
+//  Serial.print(F("°C "));
+//  Serial.print(hif);
+//  Serial.println(F("°F"));
   delay(200);
   sensorValue = analogRead(A0);       // read analog input pin 0
-  Serial.print("AirQua=");
-  Serial.print(sensorValue, DEC);               // prints the value read
-  Serial.println(" PPM");
-  delay(1000);    
+  Serial.print("AirQua: ");
+  Serial.print(sensorValue, DEC); 
+  Serial.println(" PPM \n"); 
+  delay(1000);  
 }
