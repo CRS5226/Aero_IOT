@@ -14,7 +14,7 @@ void setup() {
 }
 
 void loop() {
-  delay(500);
+  delay(2000);
 
   float h = dht.readHumidity();
   float t = dht.readTemperature();
@@ -29,14 +29,17 @@ void loop() {
   float hif = dht.computeHeatIndex(f, h);
   float hic = dht.computeHeatIndex(t, h, false);
 
-  Serial.print(cnt);
-  Serial.print(F(". Temperature: "));
-  Serial.print(t);
-  Serial.print(F("°C \n"));
-  cnt++;
+  delay(500);
 
-//  Serial.print(F("Humidity: "));
-//  Serial.print(h);
+//  Serial.print(cnt);
+//  Serial.print(F("Temperature: "));
+//  Serial.print(t);
+//  Serial.print(F("°C \n"));
+//  cnt++;
+  delay(1000);
+
+  Serial.print(F("Humidity: "));
+  Serial.print(h);
 //  Serial.print(F("%  Temperature: "));
 //  Serial.print(t);
 //  Serial.print(F("°C "));

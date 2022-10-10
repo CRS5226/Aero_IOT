@@ -6,9 +6,9 @@ void setup() {
 }
 void loop() {
   sensorValue = analogRead(A0);       // read analog input pin 0
-  Serial.print("AirQua=");
+  Serial.print("AirQua:");
   Serial.print(sensorValue, DEC);               // prints the value read
-  Serial.println(" PPM");
+  Serial.println(" PPM\n");
   delay(1000);                                   // wait 100ms for next reading
 }
 
